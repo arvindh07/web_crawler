@@ -3,13 +3,25 @@ const { normalizeUrl, getLinksFromHtml } = require("./crawler");
 describe("normalize url testing", () => {
     it("should normalize a url", () => {
         const inputUrl = "http://wagslane.com";
-        const expected = "wagslane.com/";
+        const expected = "wagslane.com";
         const actual = normalizeUrl(inputUrl);
         expect(actual).toEqual(expected);
     })
     it("should strip protocol from url", () => {
-        const inputUrl = "http://wagslane.com";
-        const expected = "wagslane.com/";
+        const inputUrl = "http://wagslane.com/path";
+        const expected = "wagslane.com/path";
+        const actual = normalizeUrl(inputUrl);
+        expect(actual).toEqual(expected);
+    })
+    it("should lowercase url", () => {
+        const inputUrl = "HtTp://WagSlanE.cOM/path/";
+        const expected = "wagslane.com/path";
+        const actual = normalizeUrl(inputUrl);
+        expect(actual).toEqual(expected);
+    })
+    it("should slice slash", () => {
+        const inputUrl = "HtTp://WagSlanE.cOM";
+        const expected = "wagslane.com";
         const actual = normalizeUrl(inputUrl);
         expect(actual).toEqual(expected);
     })

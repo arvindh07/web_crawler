@@ -3,9 +3,14 @@ const {JSDOM} = require("jsdom");
 const normalizeUrl = (url) => {
     // strip protocol
     const urlObj = new URL(url);
-    const newUrl = `${urlObj.hostname}${urlObj.pathname}`;
+    let newUrl = `${urlObj.hostname}${urlObj.pathname}`;
+    if(newUrl.slice(-1) === "/"){
+        newUrl = newUrl.slice(0, -1);
+    }
     return newUrl;
 }
+
+normalizeUrl("HtTp://WagSlanE.cOM/paTh/");
 
 const getLinksFromHtml = (htmlbody, baseUrl) => {
     const urls = [];
